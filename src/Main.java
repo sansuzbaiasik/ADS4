@@ -1,4 +1,63 @@
-import java.util.*;
+/*
+ * Task 1 - DFS Trace (source: A)
+ *
+ * Graph adjacency lists:
+ * A: C B D
+ * B: A C E G
+ * C: A B D
+ * D: C A
+ * E: G F B
+ * F: G E
+ * G: F B
+ *
+ * Step 1: Start at A, mark A. Stack: [A]
+ * Step 2: Visit C (first neighbor of A). Stack: [A, C]
+ * Step 3: A visited(skip), visit B (next of C). Stack: [A, C, B]
+ * Step 4: A,C visited(skip), visit E (next of B). Stack: [A, C, B, E]
+ * Step 5: Visit G (first of E). Stack: [A, C, B, E, G]
+ * Step 6: Visit F (first of G). Stack: [A, C, B, E, G, F]
+ * Step 7: G,E visited(skip), backtrack to G
+ * Step 8: B visited(skip), backtrack to E
+ * Step 9: F,B visited(skip), backtrack to B
+ * Step 10: G visited(skip), backtrack to C
+ * Step 11: Visit D (next of C). Stack: [A, C, B, E, G, F, D]
+ * Step 12: C,A visited(skip), backtrack. DFS complete.
+ *
+ * DFS Visit Order: A -> C -> B -> E -> G -> F -> D
+ *
+ * -------------------------------------------------------
+ *
+ * Task 2 - BFS Trace (source: A)
+ *
+ * Step 1: Enqueue A. Queue: [A]
+ * Step 2: Dequeue A, enqueue neighbors C, B, D. Queue: [C, B, D]
+ * Step 3: Dequeue C, A/B/D already marked. Queue: [B, D]
+ * Step 4: Dequeue B, enqueue E, G. Queue: [D, E, G]
+ * Step 5: Dequeue D, C/A already marked. Queue: [E, G]
+ * Step 6: Dequeue E, enqueue F. Queue: [G, F]
+ * Step 7: Dequeue G, F/B already marked. Queue: [F]
+ * Step 8: Dequeue F, G/E already marked. Queue: []
+ *
+ * BFS Visit Order: A -> C -> B -> D -> E -> G -> F
+ *
+ * -------------------------------------------------------
+ *
+ * Task 4 - Dijkstra Shortest Path (Edinburgh to Dundee)
+ *
+ * Roads: Edinburgh-Stirling(50), Edinburgh-Glasgow(70),
+ *        Edinburgh-Perth(100), Stirling-Glasgow(50),
+ *        Stirling-Perth(40), Perth-Dundee(60)
+ *
+ * Step 1: Start Edinburgh(0). Update Stirling=50, Glasgow=70, Perth=100
+ * Step 2: Extract Stirling(50). Update Perth=90 (50+40 < 100)
+ * Step 3: Extract Glasgow(70). No updates.
+ * Step 4: Extract Perth(90). Update Dundee=150 (90+60)
+ * Step 5: Extract Dundee(150). Done.
+ *
+ * Shortest Path: Edinburgh -> Stirling -> Perth -> Dundee
+ * Total Distance: 150 miles
+ */import java.util.*;
+
 
 public class Main {
 
